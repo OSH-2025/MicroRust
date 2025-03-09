@@ -1,4 +1,4 @@
-​     1.Rust改写Harmony LiteOS OSH2024 链接：[OSH-2024/RushToLight: This is a repository trying to rewrite LiteOS-M kernel using Rust to improve its security.](https://github.com/OSH-2024/RushToLight)
+     1.Rust改写Harmony LiteOS OSH2024 链接：[OSH-2024/RushToLight: This is a repository trying to rewrite LiteOS-M kernel using Rust to improve its security.](https://github.com/OSH-2024/RushToLight)
 
 ​     2.Rust改写HuaWei LiteOS OSH2024 链接：[OSH-2024/Rage_of_dUST](https://github.com/OSH-2024/Rage_of_dUST)
 
@@ -16,13 +16,13 @@
 
 [OSH-2019/x-rust-freertos: FreeRTOS rewritten in Rust.](https://github.com/OSH-2019/x-rust-freertos)
 
-9. 改写sel4![image-20250309105124063](C:\Users\hyyx1\AppData\Roaming\Typora\typora-user-images\image-20250309105124063.png)
+9. 改写sel4![Alt pic](./pic/1.png)
 
 [OSH-2019/x-qwq: x-qwq created by GitHub Classroom](https://github.com/OSH-2019/x-qwq)
 
 10.  rust改写freertos[OSH-2019/x-rust-freertos: FreeRTOS rewritten in Rust.](https://github.com/OSH-2019/x-rust-freertos)
 11. **基于 Rust 和 WebAssembly 的互联网分布式文件系统**[OSH-2020/x-gkd: x-gkd created by GitHub Classroom](https://github.com/OSH-2020/x-gkd)
-12. ![image-20250309105906251](C:\Users\hyyx1\AppData\Roaming\Typora\typora-user-images\image-20250309105906251.png)
+12. ![Alt pic](./pic/2.png)
 
 [OSH-2020/x-chital: x-chital created by GitHub Classroom](https://github.com/OSH-2020/x-chital)
 
