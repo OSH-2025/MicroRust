@@ -93,3 +93,8 @@ pvPortCalloc() 函数与标准库的 calloc 函数签名和功能一致。
 
 #### 实现 Rust 内存管理模块
 #### 测试与优化
+测试：使用 FreeRTOS 的内存测试示例（如 MemoryTests.c）验证分配器的正确性。
+性能调优：
+- 监控内存碎片率（可通过 xPortGetFreeHeapSize 接口）。
+- 根据实时系统需求调整分配器参数（如 slab 大小、区域划分）。
+安全检查：利用 Rust 的所有权模型确保无悬垂指针和内存泄漏。
