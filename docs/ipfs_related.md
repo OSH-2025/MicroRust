@@ -2,12 +2,14 @@
 # IPFS 原理与架构
 
 ## IPFS 原理演示
+<img width="400" alt="image" src="https://github.com/user-attachments/assets/799ee30a-02d9-4670-9724-69ef810cb79c" />
 
-![IPFS 原理演示](https://i.imgur.com/3Q5ZyJq.jpg)
+
 
 ## IPFS 数据块结构
+<img width="268" alt="image" src="https://github.com/user-attachments/assets/ea64acde-0842-4c1c-8655-895c2ff4e501" />
 
-![IPFS 数据块结构](https://i.imgur.com/4ZZZEKF.jpg)
+
 
 ## 相关工具和资源
 
