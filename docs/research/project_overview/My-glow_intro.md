@@ -2,7 +2,7 @@
 My-Glow将2021年的x-DisGraFS图文件系统应用在分布式文件系统上,建立了一个支持Web服务分布式文件系统平台.该平台在实现云存储的前提下,兼具图文件系统方便用户快速搜索,模糊搜索,查找相关文件的特点.My-Glow项目搭建了整个分布式框架,解决了数据一致性问题,让整个图文件系统的鲁棒性大大提高,可以应对多种突发情况并且保证正确性;同时,项目重写了前端和可视化来实现具有更好体验的图文件系统;进一步,项目更新了ray打标的大模型,让图文件系统更加准确,提高了效率和体验.
 # 项目结构
 项目结构如图,一共分为六个模块.
-![My-Glow_structure](pic/My-Glow_structure.png)
+![My-Glow_structure](pics/My-Glow_structure.png)
 ## 客户端
 访问web服务器接入,呈现给用户的界面,用户可以进行文件和文件夹操作,查看图的结构以及查找文件等等.客户端以网页的形式展现,可以直接使用浏览器访问,使用python和JavaScript编写,与一般网页编程无异.代码见[客户端](https://github.com/OSH-2023/My-Glow/tree/main/code/web_server)
 ## web服务器
@@ -18,6 +18,6 @@ Ray是一个用于构建分布式应用程序的开源框架.它旨在使开发�
 ## 分布式存储集群
 文件切片后的存储位置.代码见[分布式存储集群](https://github.com/OSH-2023/My-Glow/tree/main/code/storage_server).由于我们项目计划使用JuiceFs提供的云存储服务,该部分不会出现在我们的项目中.
 ## 分布式计算集群
-Ray模块实现的计算集群.代码见[分布式存储集群](https://github.com/OSH-2023/My-Glow/tree/main/code/central_server).由于我们不准备使用Ray模块,该部分不会出现在我们的项目中.
+Ray模块实现的计算集群.代码见[分布计算储集群](https://github.com/OSH-2023/My-Glow/tree/main/code/central_server).由于我们不准备使用Ray模块,该部分不会出现在我们的项目中.
 ## neo4j
 Neo4j是一个高性能的NOSQL图形数据库,用于存储图文件系统的文件关系.它将结构化数据存储在图上而不是表中;它是一个嵌入式的,基于磁盘的,具备完全的事务特性的Java持久化高性能引擎,该引擎具有成熟数据库的所有特性;它是一个可扩展,符合ACID的图形数据库,采用了高性能分布式集群架构设计,并可用于自托管和云产品;其查询语言为cypher,编写语言为java.代码见[neo4j](https://github.com/OSH-2023/My-Glow/tree/main/code/neo4j_server).
