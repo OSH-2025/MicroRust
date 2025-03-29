@@ -1,0 +1,110 @@
+# 数据库
+数据库（Database）是一个用于存储、管理和检索数据的系统，它以一种结构化的方式组织数据，使得数据能够被有效地存储、查询、更新和维护。在分布式系统中，数据库扮演着至关重要的角色，它不仅负责数据的存储和管理，还需要处理分布式系统中与数据一致性、可用性、可靠性等相关的一系列挑战。分布式系统要求数据库能够在多个物理节点（通常分布在不同的计算机或地理位置）之间分配和管理数据，因此，在设计和使用时，需要考虑很多传统单机数据库系统所没有的因素。
+## 作用
+1. 数据存储与管理（Data Storage and Management）：分布式系统中的数据库负责存储和管理海量数据，将数据分散到多个节点以实现高容量和高性能。
+2. 提供数据访问接口（Data Access Interface）：数据库为应用程序提供统一的数据访问接口（如SQL、NoSQL API），隐藏分布式系统的复杂性。
+3. 确保数据一致性（Data Consistency）：在多节点环境下，数据库负责协调数据的读写操作，确保数据一致性。
+4. 支持高可用性与容错（High Availability and Fault Tolerance）：数据库通过数据复制和故障转移机制，确保系统在节点故障时仍能正常运行。
+5. 提高性能与并行处理（Performance and Parallel Processing）：数据库利用分布式架构并行处理查询和事务，提升响应速度。
+6. 数据分片与负载均衡（Data Sharding and Load Balancing）：数据库将数据分片存储到不同节点，分散负载，避免单点压力。
+7. 支持事务处理（Transaction Support）：分布式数据库提供事务支持，确保多节点操作的原子性、一致性、隔离性和持久性（ACID）。
+8. 数据恢复与备份（Data Recovery and Backup）：数据库通过日志和快照机制，支持数据恢复和灾难备份。
+## 主要结构
+1. 客户端：发送查询请求。
+2. 负载均衡器/代理层：路由请求到合适的节点。
+3. 数据库节点：存储分片数据和副本，执行本地操作。
+![MySQL数据库模块图示](pic/MySQL_Principle.png)
+## 数据关系
+### 分布式关系数据库（Distributed Relational Database）
+数据库支持SQL和表结构，数据分布在多节点但保持关系模型。常见数据库有Google Spanner、Citus。
+### 分布式NoSQL数据库（Distributed NoSQL Database）
+非关系型数据库，强调高可扩展性和灵活性，通常牺牲强一致性，支持高并发。
+#### 键值存储（Key-Value）
+常见数据库有DynamoDB、Redis。
+#### 列族存储（Column-Family）
+常见数据库有Cassandra、HBase。
+#### 文档存储（Document）
+常见数据库有MongoDB、CouchDB。
+#### 图数据库（Graph）
+常见数据库有Neo4j。
+## 图数据库
+图数据库（Graph Database，GDB）是一种用于存储和处理图形数据的数据库，该系统的一个关键概念是图，它将数据建模为图结构，将存储中的数据项与数据节点以及节点间表示关系的边的集合进行关联，从而使用节点之间以边相连的图结构进行数据的表示。这些关系使得数据库中的数据直接链接在一起，易于检索。图数据库专为处理复杂关系和连接数据而设计，适用于存储和查询高度互联的数据，与传统的关系型数据库相比，图的文件关联形式与人类的思考模式类似，在处理涉及多个关系的数据时，更具用户友好性。
+### 关键概念
+1. 节点：构成一张图的基本元素是节点和关系，节点和关系都可以附带属性。
+2. 关系：通过关系可以找到很多关联的数据，比如节点集合，关系集合以及他们的属性集合。
+3. 属性：节点和关系都可以设置自己的属性。 属性是由Key-Value键值对组成，键名是字符串。
+4. 路径：路径由至少一个节点，通过各种关系连接组成，经常是作为一个查询或者遍历的结果。
+5. 遍历：遍历一张图就是按照一定的规则，跟随他们的关系，访问关联的的节点集合。
+### Neo4j
+Neo4j是一个高性能的NOSQL图形数据库，它将结构化数据存储在图上而不是表中。它是一个嵌入式的、基于磁盘的、具备完全的事务特性的Java持久化高性能引擎，该引擎具有成熟数据库的所有特性。它是一个可扩展、符合 ACID 的图形数据库，采用了高性能分布式集群架构设计，并可用于自托管和云产品。Neo4j查询语言为cypher，编写语言为java。
+![Neo4j的图结构数据存储图示](pic/Neo4j_Structure.png)
+## Neo4j使用方法
+### 下载与安装
+下载地址见[官网](https://neo4j.com/download/)，分为Community Edition和Enterprise Edition版本，一般使用免费的Community Edition，适合学习和小型项目。
+### 启动Neo4j
+1. 进入Neo4j目录：```cd neo4j-community-<version>/bin```。
+2. 运行：```neo4j console```。
+3. 默认端口：```http://localhost:7474```。
+4. 停止：Ctrl+C或运行```neo4j stop```。
+### 访问Neo4j Browser
+1. 打开浏览器，输入```http://localhost:7474```。
+2. 第一次登录时，用户名为neo4j，密码在初次登录后需设置。
+![Neo4j Browser图示](pic/Neo4j_Browser.png)
+### Cypher查询语言
+Cypher是Neo4j的查询语言，语法直观，类似SQL但专注于图结构。
+#### 创建数据
+1. 创建节点：创建一个标签为Person的节点，属性为name和age。
+```cypher
+CREATE (p:Person {name: "Alice", age: 25})
+```
+2. 创建关系：创建两个节点并用KNOWS关系连接。
+```cypher
+CREATE (p1:Person {name: "Alice"})-[:KNOWS]->(p2:Person {name: "Bob"})
+```
+#### 查询数据
+1. 匹配节点：查找名为Alice的Person节点。
+```cypher
+MATCH (p:Person)
+WHERE p.name = "Alice"
+RETURN p
+```
+2. 匹配关系：返回所有KNOWS关系中的人物对。
+```cypher
+MATCH (p1:Person)-[:KNOWS]->(p2:Person)
+RETURN p1.name, p2.name
+```
+#### 更新数据
+1. 修改属性：
+```cypher
+MATCH (p:Person {name: "Alice"})
+SET p.age = 26
+RETURN p
+```
+2. 添加关系：
+```cypher
+MATCH (p1:Person {name: "Alice"}), (p2:Person {name: "Charlie"})
+CREATE (p1)-[:KNOWS]->(p2)
+```
+#### 删除数据
+1. 删除节点：首先找到与Alice有关的所有关系，并利用DETACH自动删除相关关系。
+```cypher
+MATCH (p:Person {name: "Alice"})
+DETACH DELETE p
+```
+2. 删除关系：
+```cypher
+MATCH (p1:Person)-[r:KNOWS]->(p2:Person)
+WHERE p1.name = "Alice" AND p2.name = "Bob"
+DELETE r
+```
+### Neo4j的工具
+1. Neo4j Browser：内置 Web 界面，用于运行 Cypher 和可视化图。
+2. Neo4j Desktop：图形化管理工具，适合本地开发。
+3. Python编程接口：使用neo4j或py2neo库。
+```python
+# example
+from neo4j import GraphDatabase
+driver = GraphDatabase.driver("bolt://localhost:7687", auth=("neo4j", "password"))
+with driver.session() as session:
+    session.run("CREATE (p:Person {name: 'Dave'})")
+```
