@@ -169,15 +169,17 @@ public class IpfsExample {
         System.out.println("File added to IPFS with hash: " + addResult.hash);
     }
 }
-4. 运行环境要求
+### 4. 运行环境要求
 Java 版本: 确保你的项目使用的是 Java 8 或更高版本。
 IPFS 节点: 确保 IPFS 节点正在运行并监听 HTTP API 接口（默认端口是 5001）。
-5. 常见问题
+### 5. 常见问题
 IPFS 节点未启动：如果 IPFS 节点没有运行，客户端会抛出连接错误。请确保 IPFS 节点已启动并可用。
 网络问题：如果 IPFS 节点运行在远程服务器上，请确保防火墙允许访问 HTTP API 端口（默认 5001）。
 版本兼容性：如果你使用的是较新版本的 IPFS 节点，请检查 java-ipfs-http-client 是否支持该版本的 API。
-6. 更新依赖
+### 6. 更新依赖
 如果你想使用最新版本的 java-ipfs-http-client，可以查看其 GitHub 仓库 或 Maven Central 页面，获取最新的版本号并更新 pom.xml 中的 <version> 字段。
+
+
 下载方式与上传类似，代码依据具体需求改写，可参考下列网站
 参考java实现ipfs上传和下载功能：https://blog.csdn.net/naihe_fish/article/details/146587291
 https://blog.csdn.net/yfanjy/article/details/123938161
