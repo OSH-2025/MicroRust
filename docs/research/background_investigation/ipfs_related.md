@@ -106,9 +106,10 @@ Filecoin 是建立在 IPFS 之上的激励层，它通过区块链技术为存�
 3. 如果安装了下载软件，也可以使用这些软件接管下载，例如使用FDM等。
 4. 除了P2P下载方式，IPFS还可以采用公共网关创建分享链接的方式分享文件。公共网关本身也是一个IPFS节点，但拥有公网IP，连接速度较快，可以帮助其他节点下载。
 
+![image](https://github.com/user-attachments/assets/6a7b9b97-b0cf-4c3a-b8f4-a21985beb991)
 
 
-用于在 Java 项目中引入 java-ipfs-http-client 库。这个库是一个 Java 客户端，允许开发者通过 HTTP 协议与 IPFS 节点进行交互。
+java实现举例：用于在 Java 项目中引入 java-ipfs-http-client 库。这个库是一个 Java 客户端，允许开发者通过 HTTP 协议与 IPFS 节点进行交互。
 
 详细说明
 1. 依赖的作用
@@ -177,3 +178,6 @@ IPFS 节点未启动：如果 IPFS 节点没有运行，客户端会抛出连接
 版本兼容性：如果你使用的是较新版本的 IPFS 节点，请检查 java-ipfs-http-client 是否支持该版本的 API。
 6. 更新依赖
 如果你想使用最新版本的 java-ipfs-http-client，可以查看其 GitHub 仓库 或 Maven Central 页面，获取最新的版本号并更新 pom.xml 中的 <version> 字段。
+下载方式与上传类似，代码依据具体需求改写，可参考下列网站
+参考java实现ipfs上传和下载功能：https://blog.csdn.net/naihe_fish/article/details/146587291
+https://blog.csdn.net/yfanjy/article/details/123938161
