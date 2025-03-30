@@ -86,3 +86,94 @@ Filecoin 是建立在 IPFS 之上的激励层，它通过区块链技术为存�
 ## 五、让 IPFS 和本地文件系统结合
 
 为了让 IPFS 和本地文件系统能够交互，需要使用 FUSE（Filesystem in Userspace）这个工具。简单来说，FUSE 就像是一个“翻译官”，它能把 IPFS 的分布式文件系统“翻译”成本地文件系统能理解的样子。
+# IPFS文件上传和下载过程
+
+在图中的项目中，IPFS文件上传和下载的过程可以通过以下步骤实现：
+
+## 上传文件
+
+1. 将IPFS的依赖引入到项目工程中，并进行配置。
+2. 编写控制类，写出上传接口。例如，使用Java编写的控制类，通过`@Autowired`注解注入`IpfsService`服务，并编写`@PostMapping("/upload")`注解的方法来处理上传请求。
+3. 实现上传方法，例如`uploadIpfs`方法，该方法接收一个`MultipartFile`对象，代表要上传的文件。
+4. 使用`IPFS`客户端实例，调用`add`方法将文件添加到IPFS网络中，该方法会返回一个包含文件哈希值的`MerkleNode`对象。
+5. 从`MerkleNode`对象中获取文件的CID（Content Identifier），这是文件在IPFS网络中的唯一标识符。
+6. 将文件CID返回给用户，用户可以通过这个CID来访问或分享文件。
+
+## 下载文件
+
+1. 用户通过CID访问或分享文件时，可以使用`ipfs cat <CID>`命令来访问文件内容。
+2. IPFS网络会通过CID找到存储该文件的节点，并直接从这些节点下载数据。
+3. 如果安装了下载软件，也可以使用这些软件接管下载，例如使用FDM等。
+4. 除了P2P下载方式，IPFS还可以采用公共网关创建分享链接的方式分享文件。公共网关本身也是一个IPFS节点，但拥有公网IP，连接速度较快，可以帮助其他节点下载。
+
+
+
+用于在 Java 项目中引入 java-ipfs-http-client 库。这个库是一个 Java 客户端，允许开发者通过 HTTP 协议与 IPFS 节点进行交互。
+
+详细说明
+1. 依赖的作用
+java-ipfs-http-client 是一个轻量级的 Java 库，封装了 IPFS 的 HTTP API。
+使用该库，你可以通过 Java 程序调用 IPFS 的功能，例如：
+添加文件到 IPFS。
+获取文件内容。
+列出目录。
+执行其他 IPFS 操作（如 Pin、Unpin、版本控制等）。
+2. Maven 依赖解析
+以下是依赖配置的各部分含义：
+
+xml
+深色版本
+<dependency>
+    <groupId>com.github.ipfs</groupId> <!-- 组 ID，标识库的组织或作者 -->
+    <artifactId>java-ipfs-http-client</artifactId> <!-- 库的名称 -->
+    <version>1.3.3</version> <!-- 版本号 -->
+</dependency>
+groupId: com.github.ipfs 表示该库托管在 GitHub 上，并且由 IPFS 社区维护。
+artifactId: java-ipfs-http-client 是库的名称，表示它是一个 Java 实现的 IPFS HTTP 客户端。
+version: 1.3.3 是库的具体版本号，建议使用最新稳定版本以获得更好的兼容性和功能支持。
+3. 如何使用
+要使用这个库，你需要确保以下几点：
+
+IPFS 节点运行：
+在本地或远程运行一个 IPFS 节点（可以通过官方 IPFS 安装包启动）。
+默认情况下，IPFS 的 HTTP API 监听地址为 http://localhost:5001。
+添加依赖：
+将上述 <dependency> 配置添加到你的 Maven 项目的 pom.xml 文件中。
+示例代码：
+下面是一个简单的示例代码，演示如何使用 java-ipfs-http-client 添加文件到 IPFS 并获取其哈希值：
+java
+深色版本
+import io.ipfs.api.IPFS;
+import io.ipfs.api.MerkleNode;
+import io.ipfs.api.NamedStreamable;
+
+import java.io.File;
+import java.io.IOException;
+
+public class IpfsExample {
+    public static void main(String[] args) throws IOException {
+        // 连接到本地 IPFS 节点
+        IPFS ipfs = new IPFS("/ip4/127.0.0.1/tcp/5001");
+
+        // 创建一个文件对象
+        File file = new File("example.txt");
+
+        // 将文件包装为 NamedStreamable 对象
+        NamedStreamable.FileWrapper fileWrapper = new NamedStreamable.FileWrapper(file);
+
+        // 将文件添加到 IPFS
+        MerkleNode addResult = ipfs.add(fileWrapper).get(0);
+
+        // 输出文件的哈希值
+        System.out.println("File added to IPFS with hash: " + addResult.hash);
+    }
+}
+4. 运行环境要求
+Java 版本: 确保你的项目使用的是 Java 8 或更高版本。
+IPFS 节点: 确保 IPFS 节点正在运行并监听 HTTP API 接口（默认端口是 5001）。
+5. 常见问题
+IPFS 节点未启动：如果 IPFS 节点没有运行，客户端会抛出连接错误。请确保 IPFS 节点已启动并可用。
+网络问题：如果 IPFS 节点运行在远程服务器上，请确保防火墙允许访问 HTTP API 端口（默认 5001）。
+版本兼容性：如果你使用的是较新版本的 IPFS 节点，请检查 java-ipfs-http-client 是否支持该版本的 API。
+6. 更新依赖
+如果你想使用最新版本的 java-ipfs-http-client，可以查看其 GitHub 仓库 或 Maven Central 页面，获取最新的版本号并更新 pom.xml 中的 <version> 字段。
