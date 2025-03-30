@@ -1,5 +1,5 @@
 # 关于 IPFS/Filecoin 技术原理和使用方法的调研
-# IPFS 原理与架构
+# IPFS 原理与架构 
 
 ## IPFS 原理演示
 <img width="400" alt="image" src="https://github.com/user-attachments/assets/799ee30a-02d9-4670-9724-69ef810cb79c" />
