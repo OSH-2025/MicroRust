@@ -7,12 +7,12 @@ AIOS 系统由两个关键组件组成：AIOS 内核和 AIOS SDK。AIOS 内核�
 ### ArkFS
 ArkFS 是受 AIOS 项目启发的人工智能文件系统，将大模型嵌入到文件系统中，利用大模型理解用户的文本语义，实现文件增删改查等操作。该文件系统利用大模型理解用户需求，形成文件操作的任务队列，无需人工干预。大模型部署在本地，学习本地文件，实现向量化检索。[ref]
 ## 分布式存储系统
-1. HDFS（Hadoop Distributed File System）：用于Hadoop生态系统，适合大数据处理。
-2. NFS（Network File System）：传统分布式文件系统，基于客户端-服务器模型。
-3. GFS（Google File System）：Google开发的私有系统，启发了HDFS。
-4. Ceph：开源分布式存储系统，支持文件、块和对象存储。
-5. GlusterFS：开源分布式文件系统，易于扩展。
-6. My-Glow（Graph File System，23年科大OSH项目）：一个带有图结构的、高鲁棒性的、体验优秀的分布式文件系统。
+1. HDFS（Hadoop Distributed File System）：用于Hadoop生态系统，适合大数据处理。[ref]
+2. NFS（Network File System）：传统分布式文件系统，基于客户端-服务器模型。[ref]
+3. GFS（Google File System）：Google开发的私有系统，启发了HDFS。[ref]
+4. Ceph：开源分布式存储系统，支持文件、块和对象存储。[ref]
+5. GlusterFS：开源分布式文件系统，易于扩展。[ref]
+6. My-Glow（Graph File System，23年科大OSH项目）：一个带有图结构的、高鲁棒性的、体验优秀的分布式文件系统。[ref]
 ### IPFS
 
 ### Ceph
