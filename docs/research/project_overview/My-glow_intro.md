@@ -16,8 +16,8 @@ MySQL是一种开源的关系型数据库管理系统,它使用结构化查询�
 ### Ray模块
 Ray是一个用于构建分布式应用程序的开源框架.它旨在使开发人员能够轻松地编写高性能,可扩展的分布式应用程序,尤其是处理大规模数据和机器学习任务.该部分我们计划使用AIOS进行文件打标,而AIOS能够在单计算节点上良好运行,故我们的项目没有使用Ray模块的需求.
 ## 分布式存储集群
-文件切片后的存储位置.代码见[分布式存储集群](https://github.com/OSH-2023/My-Glow/tree/main/code/storage_server).由于我们项目计划使用JuiceFs提供的云存储服务,该部分不会出现在我们的项目中.
+文件切片后的存储位置.代码见[分布式存储集群](https://github.com/OSH-2023/My-Glow/tree/main/code/storage_server).由于我们项目计划使用IPFS提供的云存储服务,该部分不会出现在我们的项目中.
 ## 分布式计算集群
-Ray模块实现的计算集群.代码见[分布计算储集群](https://github.com/OSH-2023/My-Glow/tree/main/code/central_server).由于我们不准备使用Ray模块,该部分不会出现在我们的项目中.
+Ray模块实现的计算集群.代码见[分布计算储集群](https://github.com/OSH-2023/My-Glow/tree/main/code/central_server).由于我们不准备使用Ray模块,而是在用户本地内置AIOS打标工具,该部分不会出现在我们的项目中.
 ## neo4j
 Neo4j是一个高性能的NOSQL图形数据库,用于存储图文件系统的文件关系.它将结构化数据存储在图上而不是表中;它是一个嵌入式的,基于磁盘的,具备完全的事务特性的Java持久化高性能引擎,该引擎具有成熟数据库的所有特性;它是一个可扩展,符合ACID的图形数据库,采用了高性能分布式集群架构设计,并可用于自托管和云产品;其查询语言为cypher,编写语言为java.代码见[neo4j](https://github.com/OSH-2023/My-Glow/tree/main/code/neo4j_server).
