@@ -106,9 +106,6 @@ Filecoin 是建立在 IPFS 之上的激励层，它通过区块链技术为存�
 3. 如果安装了下载软件，也可以使用这些软件接管下载，例如使用FDM等。
 4. 除了P2P下载方式，IPFS还可以采用公共网关创建分享链接的方式分享文件。公共网关本身也是一个IPFS节点，但拥有公网IP，连接速度较快，可以帮助其他节点下载。
 
-![image](https://github.com/user-attachments/assets/6a7b9b97-b0cf-4c3a-b8f4-a21985beb991)
-
-
 java实现举例：用于在 Java 项目中引入 java-ipfs-http-client 库。这个库是一个 Java 客户端，允许开发者通过 HTTP 协议与 IPFS 节点进行交互。
 
 详细说明
@@ -121,14 +118,8 @@ java-ipfs-http-client 是一个轻量级的 Java 库，封装了 IPFS 的 HTTP A
 执行其他 IPFS 操作（如 Pin、Unpin、版本控制等）。
 2. Maven 依赖解析
 以下是依赖配置的各部分含义：
+![image](https://github.com/user-attachments/assets/6a7b9b97-b0cf-4c3a-b8f4-a21985beb991)
 
-xml
-深色版本
-<dependency>
-    <groupId>com.github.ipfs</groupId> <!-- 组 ID，标识库的组织或作者 -->
-    <artifactId>java-ipfs-http-client</artifactId> <!-- 库的名称 -->
-    <version>1.3.3</version> <!-- 版本号 -->
-</dependency>
 groupId: com.github.ipfs 表示该库托管在 GitHub 上，并且由 IPFS 社区维护。
 artifactId: java-ipfs-http-client 是库的名称，表示它是一个 Java 实现的 IPFS HTTP 客户端。
 version: 1.3.3 是库的具体版本号，建议使用最新稳定版本以获得更好的兼容性和功能支持。
@@ -144,31 +135,8 @@ IPFS 节点运行：
 下面是一个简单的示例代码，演示如何使用 java-ipfs-http-client 添加文件到 IPFS 并获取其哈希值：
 java
 深色版本
-import io.ipfs.api.IPFS;
-import io.ipfs.api.MerkleNode;
-import io.ipfs.api.NamedStreamable;
+![image](https://github.com/user-attachments/assets/a020b6df-295e-474a-93b5-49f1f7ab0265)
 
-import java.io.File;
-import java.io.IOException;
-
-public class IpfsExample {
-    public static void main(String[] args) throws IOException {
-        // 连接到本地 IPFS 节点
-        IPFS ipfs = new IPFS("/ip4/127.0.0.1/tcp/5001");
-
-        // 创建一个文件对象
-        File file = new File("example.txt");
-
-        // 将文件包装为 NamedStreamable 对象
-        NamedStreamable.FileWrapper fileWrapper = new NamedStreamable.FileWrapper(file);
-
-        // 将文件添加到 IPFS
-        MerkleNode addResult = ipfs.add(fileWrapper).get(0);
-
-        // 输出文件的哈希值
-        System.out.println("File added to IPFS with hash: " + addResult.hash);
-    }
-}
 ### 4. 运行环境要求
 Java 版本: 确保你的项目使用的是 Java 8 或更高版本。
 IPFS 节点: 确保 IPFS 节点正在运行并监听 HTTP API 接口（默认端口是 5001）。
