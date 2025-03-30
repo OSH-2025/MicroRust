@@ -108,25 +108,25 @@ Filecoin 是建立在 IPFS 之上的激励层，它通过区块链技术为存�
 
 java实现举例：用于在 Java 项目中引入 java-ipfs-http-client 库。这个库是一个 Java 客户端，允许开发者通过 HTTP 协议与 IPFS 节点进行交互。
 
-详细说明
-1. 依赖的作用
+## 详细说明
+### 1. 依赖的作用
 java-ipfs-http-client 是一个轻量级的 Java 库，封装了 IPFS 的 HTTP API。
 使用该库，你可以通过 Java 程序调用 IPFS 的功能，例如：
 添加文件到 IPFS。
 获取文件内容。
 列出目录。
 执行其他 IPFS 操作（如 Pin、Unpin、版本控制等）。
-2. Maven 依赖解析
+### 2. Maven 依赖解析
 以下是依赖配置的各部分含义：
 ![image](https://github.com/user-attachments/assets/6a7b9b97-b0cf-4c3a-b8f4-a21985beb991)
 
 groupId: com.github.ipfs 表示该库托管在 GitHub 上，并且由 IPFS 社区维护。
 artifactId: java-ipfs-http-client 是库的名称，表示它是一个 Java 实现的 IPFS HTTP 客户端。
 version: 1.3.3 是库的具体版本号，建议使用最新稳定版本以获得更好的兼容性和功能支持。
-3. 如何使用
+### 3. 如何使用
 要使用这个库，你需要确保以下几点：
 
-IPFS 节点运行：
+### IPFS 节点运行：
 在本地或远程运行一个 IPFS 节点（可以通过官方 IPFS 安装包启动）。
 默认情况下，IPFS 的 HTTP API 监听地址为 http://localhost:5001。
 添加依赖：
