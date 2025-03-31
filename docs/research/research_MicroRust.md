@@ -465,7 +465,7 @@ sequenceDiagram
 
 ### 项目结构
 这是之前vivo50组的基本架构：
-![Alt pic](../pics/figs-laststruct.png)
+![Alt pic](./pics/figs-laststruct.png)
 我们将利用一个图形简述我们如何如何搭建相应的模型，或者说我们如何对于先前已有的工作进行完善。
 ```mermaid
       %%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#ffdfd3', 'edgeLabelBackground':'#fff'}}}%%
