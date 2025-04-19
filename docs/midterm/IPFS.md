@@ -1,5 +1,3 @@
-在 Python 应用中调用 IPFS，最常用的方式是通过 `ipfshttpclient` 库。这个库提供了与 IPFS HTTP API 的便捷交互接口。以下是详细的步骤和示例代码，展示如何在 Python 应用中上传、下载文件，以及执行其他常见操作。
-
 ### 1. 安装 `ipfshttpclient` 库
 首先，确保你已经安装了 `ipfshttpclient` 库。如果没有安装，可以通过以下命令安装：
 ```bash
