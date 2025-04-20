@@ -1,11 +1,11 @@
 ### 1. 安装 `ipfshttpclient` 库
-首先，确保你已经安装了 `ipfshttpclient` 库。如果没有安装，可以通过以下命令安装：
+可以通过以下命令安装：
 ```bash
 pip install ipfshttpclient
 ```
 
 ### 2. 启动 IPFS 守护进程
-在调用 IPFS API 之前，需要确保 IPFS 守护进程已经启动。可以通过以下命令启动：
+通过以下命令启动：
 ```bash
 ipfs daemon
 ```
@@ -83,6 +83,5 @@ cid = "QmSomeCID"  # 替换为实际的 CID
 file_info = get_file_info(cid)
 ```
 
-总结
-通过上述步骤，你可以轻松地安装 ipfshttpclient 库，并在 Python 应用中使用它与 IPFS 交互。如果在安装过程中遇到任何问题，
-请参考 ipfshttpclient 的官方文档 获取更多帮助。参考网页：https://www.cnblogs.com/yoyo1216/p/13489699.html
+参考网页：https://www.cnblogs.com/yoyo1216/p/13489699.html
+https://github.com/ipfs-shipyard/py-ipfs-http-client
