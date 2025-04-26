@@ -68,4 +68,13 @@ ping 192.168.220.128#这里改为自己的虚拟机局域网ip
 往返行程的估计时间(以毫秒为单位):
     最短 = 0ms，最长 = 0ms，平均 = 0ms
 ```
+注意：	ERROR	cmd/ipfs	ipfs/daemon.go:614	failed to bootstrap (no peers found): consider updating Bootstrap or Peering section of your config是没有关系的，
+但另一个ERROR	cmd/ipfs	ipfs/daemon.go:408	Private networking (swarm.key / LIBP2P_FORCE_PNET) does not work with public HTTP IPNIs enabled by Routing.Type=auto. Kubo will use Routing.Type=dht instead. Update config to remove this message.需要处理，具体方式为：
+`ipfs config Routing.Type dht`
+重启ipfs
+```
+killall ipfs
+ipfs daemon
+```
+
 
