@@ -18,7 +18,7 @@
 
 ### 组徽
 
-<img src="src/组徽.png" alt="Alt pic" style="zoom:67%;" />
+<img src="组徽.png" alt="Alt pic" style="zoom:67%;" />
 
 #### 进度记录
 
