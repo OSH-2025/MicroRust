@@ -160,9 +160,9 @@ def process_message(message: str, chat_history: list) -> Tuple[str, list, str]:
         )
         response.raise_for_status()
         ai_response = response.json()["choices"][0]["message"]["content"]
-        chat_history.append((display_message, ai_response))
+        chat_history.append((message, ai_response))
     except Exception as e:
-        chat_history.append((display_message, f"⚠️ API错误: {str(e)}"))
+        chat_history.append((message, f"⚠️ API错误: {str(e)}"))
 
     return "", chat_history, status_msg
 
