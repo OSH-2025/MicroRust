@@ -2,3 +2,5 @@
 /temp
 .venv/
 src/__pycache__/
+src/utils/__pycache__/
+src/templates/index_old.html

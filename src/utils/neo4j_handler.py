@@ -82,8 +82,8 @@ def query_files_by_tags(tags: list[str], limit: int) -> list:
     例子：
         输入 tags = ["geography", "mountains"], limit = 2
         输出 [
-            {"filename": "example1.txt", "cid": "123", "tags": ["geography", "mountains", "txt"]},
-            {"filename": "example2.pdf", "cid": "456", "tags": ["geography", "pdf"]}
+            {"filename": "example1.txt", "cid": "123", "tags": ["geography", "mountains"]},
+            {"filename": "example2.pdf", "cid": "456", "tags": ["geography"]}
         ]
     """
 
@@ -134,8 +134,8 @@ def query_files_by_filename(filename: str) -> list:
     例子：
         输入 filename = "example.txt"
         输出 [
-            {"filename": "example.txt", "cid": "123", "tags": ["geography", "mountains", "txt"]}
-            {"filename": "example.txt", "cid": "456", "tags": ["geography", "rivers", "txt"]}
+            {"filename": "example.txt", "cid": "123", "tags": ["geography", "mountains"]}
+            {"filename": "example.txt", "cid": "456", "tags": ["geography", "rivers"]}
         ]
     """
     try:

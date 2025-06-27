@@ -38,10 +38,14 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 try:
+    azure_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT_JPE")
+    if not azure_endpoint:
+        raise ValueError("AZURE_OPENAI_ENDPOINT_JPE environment variable is not set")
+    
     client = AzureOpenAI(
         api_key=os.getenv("AZURE_OPENAI_API_KEY_JPE"), #使用Japan East服务节点
         api_version="2024-12-01-preview",
-        azure_endpoint = "https://"+os.getenv("AZURE_OPENAI_ENDPOINT_JPE")+".services.ai.azure.com/"
+        azure_endpoint = f"https://{azure_endpoint}.services.ai.azure.com/"
     )
 except Exception as e:
     logger.error(f"Failed to initialize Azure OpenAI client: {e}")
@@ -64,7 +68,7 @@ class FileTag(BaseModel):
 system_message = {
     "role": "system",
     "content": """
-    The user will provide some text or images. Please output 4-7 tags for the text in JSON format. 
+    The user will provide some text or images. Please output 4-7 tags for the text in JSON format. Tags should be in English. 
     """
 }
 
