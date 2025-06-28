@@ -124,16 +124,16 @@ def add_new_file_on_neo4j(cid, tags) -> None:
 def convert_file_to_text(file_path: str) -> str:
     """将文件内容转换为文本，支持txt、pdf和docx格式"""
     try:
-        if file_path.endswith('.pdf'):
+        if file_path.endswith(".pdf"):
             from PyPDF2 import PdfReader
             reader = PdfReader(file_path)
             return "\n".join(page.extract_text() for page in reader.pages if page.extract_text())
-        elif file_path.endswith('.docx'):
+        elif file_path.endswith(".docx"):
             from docx import Document
             doc = Document(file_path)
             return "\n".join(paragraph.text for paragraph in doc.paragraphs)
         else:
-            with open(file_path, 'r', encoding='utf-8') as f:
+            with open(file_path, "r", encoding="utf-8") as f:
                 return f.read()
     except Exception as e:
         return f"文件读取错误: {str(e)}"
@@ -165,7 +165,7 @@ def get_tags_from_text(text: str) -> list:
         model="deepseek-chat",
         messages=messages,
         response_format={
-            'type': 'json_object'
+            "type": "json_object"
         }
     )
     
