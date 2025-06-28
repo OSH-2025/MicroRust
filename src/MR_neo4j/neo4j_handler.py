@@ -1,7 +1,7 @@
 # Neo4j图数据库驱动
 import neo4j
 
-NEO4J_URI = "bolt://117.68.10.96:27734"
+NEO4J_URI = "bolt://123.207.15.126:7687"
 NEO4J_AUTH = ("neo4j", "Microrust")
 
 def clean_all_files():

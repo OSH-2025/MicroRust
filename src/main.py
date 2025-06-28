@@ -139,5 +139,5 @@ def get_preview(cid):
         return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
-    start_ipfs();
+    start_ipfs()
     app.run(debug = True, port = 5000) 
