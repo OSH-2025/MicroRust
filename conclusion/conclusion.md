@@ -94,14 +94,17 @@ IPFS服务依赖于本地的IPFS可执行文件，在使用我们的Web服务之
 #### Neo4j图数据库模块
 ###### 图数据库介绍
 图数据库是一种通过图结构进行数据存储和查询的数据库，数据库中包含节点、边和属性等信息。Neo4j 图数据库使用 Cypher 语言（类似数据库模式的语言）进行修改和查询，具有高效性。
+
+![pc3](https://github.com/user-attachments/assets/289d90d8-337c-42b2-b27a-7fd41a2f0f96)
+
 ###### 数据库的部署
 - 我们使用云服务器部署了 Neo4j 数据库的云端服务，并通过 python API 支持客户端发送增加，删除和查询文件信息的请求，同时使用 neo4j browser 可以实时监控图数据库的使用情况和文件信息。
 
 ###### 信息交互
 - 在我们的项目中，图数据库需要存储的是文件和标签的基本信息，以及关联信息。因此我们延用了 OSH2024 vivo50 小组的设计，以文件和标签为点，以关联关系为边构建图文件系统。
-- ![pc2](https://github.com/user-attachments/assets/ae7653a1-db46-446f-a598-c9fb1868877f)
+ ![pc2](https://github.com/user-attachments/assets/ae7653a1-db46-446f-a598-c9fb1868877f)
 
-- ![pc3](https://github.com/user-attachments/assets/67ed3daf-af22-4139-9b87-9da52c045f67)
+
 
 ###### 模糊匹配和扩展
 - 在实际应用中，用户通常会给出多个标签，查询符合条件的文件，这些标签很可能不完整，也可能有错误的标签。
