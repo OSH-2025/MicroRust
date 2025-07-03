@@ -1,3 +1,5 @@
+报告已经发布在CSDN上，链接为
+https://blog.csdn.net/MIAOMIAO0925/article/details/149094269?sharetype=blogdetail&sharerId=149094269&sharerefer=PC&sharesource=MIAOMIAO0925&spm=1011.2480.3001.8118
 ### Ray简介
 Ray 是伯克利大学 RISELab 研发的一个简单高效的分布式计算引擎，为开发者提供了简单通用的API来构建分布式程序。
 
