@@ -80,7 +80,7 @@ def install_ipfs_linux(extract_path, install_path):
     print("安装完成")
 
 def ipfs_init(ipfs_path):
-    print("正在初始化IPFS节点(执行 ipfs init)")
+    print("正在初始化IPFS节点")
     res = subprocess.run([ipfs_path, "init"], capture_output = True, text = True)
     print(res.stdout)
     
@@ -118,7 +118,7 @@ def main():
             ipfs_path = os.path.join(user_bin_dir, "ipfs")
         
         ipfs_init(ipfs_path)
-        print(f"请确保{user_bin_dir}在你的系统PATH环境变量中, 这样你可以直接使用ipfs命令")
+        print(f"请确保{user_bin_dir}在你的系统PATH环境变量中, 以便直接使用ipfs命令")
     
     finally:
         if os.path.exists(download_path):

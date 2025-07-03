@@ -1,5 +1,6 @@
 # 文件与路径操作
 import os
+import shutil
 
 # 系统信息与交互
 import platform
@@ -35,8 +36,9 @@ def start_ipfs():
         
         # 启动IPFS节点
         print("启动IPFS节点")
-        # ipfsexe_paths = (subprocess.run(["where", "ipfs"],capture_output = True, text = True, check = True)).stdout.strip().splitlines()
-        ipfsexe_path = r"C:\Users\hswilliam2023\.ipfs_bin\ipfs.exe"
+        ipfsexe_path = shutil.which("ipfs")
+        if not ipfsexe_path:
+            raise FileNotFoundError("未找到IPFS可执行文件ipfs.exe), 请确保IPFS已安装并添加到环境变量PATH中")
         daemon = subprocess.Popen([ipfsexe_path, "daemon"], stdout = subprocess.DEVNULL, stderr = subprocess.DEVNULL)
         time.sleep(5)
         return daemon

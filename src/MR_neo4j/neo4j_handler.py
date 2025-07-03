@@ -34,7 +34,7 @@ def add_new_file(cid: str, filename: str, tags: list[str]):
             session.run(
                 "MERGE (f:File {cid: $cid}) "
                 "SET f.filename = $filename", # 使用SET更新filename属性
-                cid=cid, filename=filename
+                cid = cid, filename = filename
             )
             
             for tag in tags:
@@ -55,41 +55,66 @@ def add_new_file(cid: str, filename: str, tags: list[str]):
         if driver is not None:
             driver.close()
 
-def delete_file_by_cid(cid: str):
-    """删除指定cid的文件"""
+def query_files_by_filename(filename: str) -> list:
+    """
+    根据文件名查询文件,
+    输入: filename: 文件名
+    输出: 所有名为指定文件名的文件列表, 列表中的每个元素为一个字典, 包含filename, cid和tags项
+
+    例子：
+        输入 filename = "example.txt"
+        输出 [
+            {"filename": "example.txt", "cid": "123", "tags": ["geography", "mountains", "txt"]}
+            {"filename": "example.txt", "cid": "456", "tags": ["geography", "rivers", "txt"]}
+        ]
+    """
     
     driver = None
     
     try:
-        driver = neo4j.GraphDatabase.driver(NEO4J_URI, auth = NEO4J_AUTH)
+        driver = neo4j.GraphDatabase.driver(NEO4J_URI, auth=NEO4J_AUTH)
         with driver.session() as session:
-            session.run(
-                "MATCH (f:File {cid: $cid}) DETACH DELETE f",
-                cid=cid
+            result = session.run(
+                "MATCH (f:File {filename: $filename}) "
+                "OPTIONAL MATCH (f)-[:TAGGED_WITH]->(t:Tag) "
+                "RETURN f.filename AS filename, f.cid AS cid, collect(t.name) AS tags",
+                filename = filename
             )
+            return [{"filename": record["filename"], "cid": record["cid"], "tags": record["tags"]} for record in result]
     
     except Exception as e:
-        return f"Neo4j ERROR: {str(e)}"
+        return [f"Neo4j ERROR: {str(e)}"]
     
     finally:
         if driver is not None:
             driver.close()
 
-def delete_file_by_filename(filename: str):
-    """删除指定filename的文件"""
+def query_files_by_cid(cid: str) -> list:
+    """
+    根据cid查询文件,
+    输入: cid: cid字符串
+    输出: 指定cid的一个文件元素, 元素为一个字典, 包含filename, cid和tags项
+
+    例子：
+        输入 filename = "123"
+        输出 [{"filename": "example.txt", "cid": "123", "tags": ["geography", "mountains", "txt"]}]
+    """
     
     driver = None
     
     try:
-        driver = neo4j.GraphDatabase.driver(NEO4J_URI, auth = NEO4J_AUTH)
+        driver = neo4j.GraphDatabase.driver(NEO4J_URI, auth=NEO4J_AUTH)
         with driver.session() as session:
-            session.run(
-                "MATCH (f:File {filename: $filename}) DETACH DELETE f",
-                filename=filename
+            result = session.run(
+                "MATCH (f:File {cid: $cid}) "
+                "OPTIONAL MATCH (f)-[:TAGGED_WITH]->(t:Tag) "
+                "RETURN f.filename AS filename, f.cid AS cid, collect(t.name) AS tags",
+                cid = cid
             )
+            return [{"filename": record["filename"], "cid": record["cid"], "tags": record["tags"]} for record in result]
     
     except Exception as e:
-        return f"Neo4j ERROR: {str(e)}"
+        return [f"Neo4j ERROR: {str(e)}"]
     
     finally:
         if driver is not None:
@@ -134,7 +159,7 @@ def query_files_by_tags(tags: list[str], limit: int) -> list:
                     "MATCH (f:File {cid: $cid}) "
                     "OPTIONAL MATCH (f)-[:TAGGED_WITH]->(t:Tag) "
                     "RETURN f.filename AS filename, f.cid AS cid, collect(t.name) AS tags",
-                    cid=cid
+                    cid = cid
                 )
 
                 for record in file_result:
@@ -152,35 +177,41 @@ def query_files_by_tags(tags: list[str], limit: int) -> list:
         if driver is not None:
             driver.close()
 
-def query_files_by_filename(filename: str) -> list:
-    """
-    根据文件名查询文件,
-    输入: filename: 文件名
-    输出: 所有名为指定文件名的文件列表, 列表中的每个元素为一个字典, 包含filename, cid和tags项
-
-    例子：
-        输入 filename = "example.txt"
-        输出 [
-            {"filename": "example.txt", "cid": "123", "tags": ["geography", "mountains", "txt"]}
-            {"filename": "example.txt", "cid": "456", "tags": ["geography", "rivers", "txt"]}
-        ]
-    """
+def delete_file_by_filename(filename: str):
+    """删除指定filename的文件"""
     
     driver = None
     
     try:
-        driver = neo4j.GraphDatabase.driver(NEO4J_URI, auth=NEO4J_AUTH)
+        driver = neo4j.GraphDatabase.driver(NEO4J_URI, auth = NEO4J_AUTH)
         with driver.session() as session:
-            result = session.run(
-                "MATCH (f:File {filename: $filename}) "
-                "OPTIONAL MATCH (f)-[:TAGGED_WITH]->(t:Tag) "
-                "RETURN f.filename AS filename, f.cid AS cid, collect(t.name) AS tags",
-                filename=filename
+            session.run(
+                "MATCH (f:File {filename: $filename}) DETACH DELETE f",
+                filename = filename
             )
-            return [{"filename": record["filename"], "cid": record["cid"], "tags": record["tags"]} for record in result]
     
     except Exception as e:
-        return [f"Neo4j ERROR: {str(e)}"]
+        return f"Neo4j ERROR: {str(e)}"
+    
+    finally:
+        if driver is not None:
+            driver.close()
+
+def delete_file_by_cid(cid: str):
+    """删除指定cid的文件"""
+    
+    driver = None
+    
+    try:
+        driver = neo4j.GraphDatabase.driver(NEO4J_URI, auth = NEO4J_AUTH)
+        with driver.session() as session:
+            session.run(
+                "MATCH (f:File {cid: $cid}) DETACH DELETE f",
+                cid = cid
+            )
+    
+    except Exception as e:
+        return f"Neo4j ERROR: {str(e)}"
     
     finally:
         if driver is not None:
@@ -190,16 +221,19 @@ def query_files_by_filename(filename: str) -> list:
 if __name__ == "__main__":
     clean_all_files()
     
-    cid = "example_cid"
     filename = "example.txt"
+    cid = "example_cid"
     tags = ["geography", "mountains", "world", "txt"]
     
     add_new_file(cid, filename, tags)
     
-    result = query_files_by_tags(["geography", "mountains"], 2)
-    print("查询结果(tag):", result)
-    
     result = query_files_by_filename("example.txt")
     print("查询结果(filename):", result)
+
+    result = query_files_by_cid("example_cid")
+    print("查询结果(cid):", result)
+
+    result = query_files_by_tags(["geography", "mountains"], 2)
+    print("查询结果(tag):", result)
     
     print("Neo4j数据库更新成功!")

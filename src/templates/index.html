@@ -302,9 +302,15 @@
             }
         }
 
-        .file-card {
+        /* .file-card {
             transition: all 0.3s ease;
             border-left: 4px solid transparent;
+        } */
+
+        .file-card {
+            display: inline-block;
+            max-width: 100%;
+            white-space: nowrap;
         }
 
         .file-card:hover {
@@ -392,12 +398,14 @@
         <div id="searchSection" class="space-y-8 section-transition section-hidden">
             <!-- 搜索框 -->
             <div class="card rounded-3xl p-10">
+                <!-- 搜索类型、关键词、按钮代码 -->
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-end">
                     <div class="md:col-span-3">
                         <label class="block text-sm font-semibold text-gray-700 mb-2">搜索类型</label>
                         <select id="searchType" name="search_type" class="select-input w-full">
-                            <option value="filename">按文件名搜索</option>
+                            <!-- <option value="tags">自然语言搜索</option> -->
                             <option value="tags">按标签搜索</option>
+                            <option value="filename">按文件名搜索</option>
                         </select>
                     </div>
                     <div class="md:col-span-6">
@@ -414,19 +422,25 @@
                         </button>
                     </div>
                 </div>
+                <!-- 自然语言生成标签显示区 -->
+                <!-- <div id="nlTagsContainer" class="mt-4 flex flex-wrap gap-2 hidden card p-4 rounded-2xl bg-white bg-opacity-90"> -->
+                    <!-- 动态填充标签 -->
+                <!-- </div> -->
             </div>
 
             <!-- 搜索结果 -->
-            <div id="resultsSection" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div id="resultsSection" class="flex flex-col gap-4">
                 <!-- 文件列表 -->
                 <div class="card rounded-3xl p-8">
                     <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
                         <i class="fas fa-folder-open mr-3 text-blue-500 text-xl"></i>文件列表
                     </h2>
-                    <div id="fileList" class="space-y-4 max-h-96 overflow-y-auto">
-                        <div class="text-center text-gray-500 py-12">
-                            <i class="fas fa-search text-4xl mb-4 opacity-50"></i>
-                            <p class="text-lg">请输入搜索关键词</p>
+                    <div id="fileList" class="max-h-96 overflow-y-auto">
+                        <div class="flex items-center justify-center h-96 w-full text-gray-500">
+                            <div class="text-center">
+                                <i class="fas fa-search text-6xl mb-4 opacity-30"></i>
+                                <p class="text-lg">请输入搜索关键词</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -456,45 +470,46 @@
         const fileInput = document.getElementById('fileInput');
         const selectFileBtn = document.getElementById('selectFileBtn');
         const startUploadBtn = document.getElementById('startUploadBtn');
+        const searchTypeSelect = document.getElementById('searchType');
+        // const nlTagsContainer = document.getElementById('nlTagsContainer');
         let selectedFile = null;
 
         // 显示/隐藏加载动画
-        function toggleLoading(show) {
+        function toggleLoading(show){
             loading.classList.toggle('hidden', !show);
         }
 
         // 处理文件上传
-        async function handleFileUpload(file) {
+        async function handleFileUpload(file){
             toggleLoading(true);
             const formData = new FormData();
             formData.append('file', file);
 
-            try {
-                const response = await fetch('/upload', {
-                    method: 'POST',
-                    body: formData
-                });
+            try{
+                const response = await fetch('/upload', {method: 'POST', body: formData});
                 const data = await response.json();
 
-                if (data.success) {
+                if(data.success){
                     showNotification('文件上传成功！', 'success');
 
                     const uploadResult = document.getElementById('uploadResult');
                     const tagContainer = document.getElementById('tagContainer');
-                    if (Array.isArray(data.tags) && data.tags.length > 0) {
-                        tagContainer.innerHTML = data.tags.map(tag => `
-                            <span class="tag"><i class="fas fa-tag mr-2"></i>${tag}</span>
-                        `).join('');
-                    } else {
+                    if(Array.isArray(data.tags) && data.tags.length > 0){
+                        tagContainer.innerHTML = data.tags.map(tag => `<span class="tag"><i class="fas fa-tag mr-2"></i>${tag}</span>`).join('');
+                    }
+                    else{
                         tagContainer.innerHTML = '<p class="text-gray-500 text-center py-4">暂未生成标签</p>';
                     }
                     uploadResult.classList.remove('hidden');
-                } else {
+                }
+                else{
                     showNotification('上传失败：' + data.error, 'error');
                 }
-            } catch (error) {
+            }
+            catch(error){
                 showNotification('上传出错：' + error.message, 'error');
-            } finally {
+            }
+            finally{
                 toggleLoading(false);
             }
         }
@@ -514,11 +529,9 @@
             e.preventDefault();
             dropZone.classList.remove('drag-over');
             const files = e.dataTransfer.files;
-            if (files.length > 0) {
+            if(files.length > 0){
                 selectedFile = files[0];
-                document.getElementById('selectedFileName').innerHTML = `
-                    <i class="fas fa-file mr-2 text-indigo-500"></i>已选择: ${selectedFile.name}
-                `;
+                document.getElementById('selectedFileName').innerHTML = `<i class="fas fa-file mr-2 text-indigo-500"></i>已选择: ${selectedFile.name}`;
                 startUploadBtn.disabled = false;
             }
         });
@@ -529,18 +542,16 @@
         });
 
         fileInput.addEventListener('change', (e) => {
-            if (e.target.files.length > 0) {
+            if(e.target.files.length > 0){
                 selectedFile = e.target.files[0];
-                document.getElementById('selectedFileName').innerHTML = `
-                    <i class="fas fa-file mr-2 text-indigo-500"></i>已选择: ${selectedFile.name}
-                `;
+                document.getElementById('selectedFileName').innerHTML = `<i class="fas fa-file mr-2 text-indigo-500"></i>已选择: ${selectedFile.name}`;
                 startUploadBtn.disabled = false;
             }
         });
 
         // 开始上传按钮点击
         startUploadBtn.addEventListener('click', () => {
-            if (selectedFile) {
+            if(selectedFile){
                 handleFileUpload(selectedFile);
                 // 重置
                 selectedFile = null;
@@ -552,8 +563,9 @@
         // 搜索功能
         document.getElementById('searchBtn').addEventListener('click', async () => {
             const searchQuery = document.getElementById('searchQuery').value.trim();
+            const searchType = searchTypeSelect.value;
 
-            if (!searchQuery) {
+            if(!searchQuery){
                 const fileList = document.getElementById('fileList');
                 fileList.innerHTML = `
                     <div class="text-center text-gray-500 py-12">
@@ -591,7 +603,7 @@
 
                 data.results.forEach(file => {
                     const fileCard = document.createElement('div');
-                    fileCard.className = 'file-card card p-6 rounded-2xl';
+                    fileCard.className = 'file-card card inline-block p-6 rounded-2xl';
                     fileCard.innerHTML = `
                         <div class="flex justify-between items-start">
                             <div class="flex-1">
@@ -604,9 +616,12 @@
                                     `).join('')}
                                 </div>
                             </div>
-                            <div class="flex space-x-2">
+                            <div class="flex space-x-3">
                                 <button onclick="previewFile('${file.cid}')" class="action-btn text-blue-500 hover:text-white hover:bg-blue-500">
                                     <i class="fas fa-eye"></i>
+                                </button>
+                                <button onclick="downloadFile('${file.cid}')" class="action-btn text-green-500 hover:text-white hover:bg-green-500">
+                                    <i class="fas fa-download"></i>
                                 </button>
                                 <button onclick="deleteFile('${file.cid}')" class="action-btn text-red-500 hover:text-white hover:bg-red-500">
                                     <i class="fas fa-trash"></i>
@@ -616,71 +631,112 @@
                     `;
                     fileList.appendChild(fileCard);
                 });
-            } catch (error) {
+            }
+            catch(error){
                 showNotification('搜索出错：' + error.message, 'error');
-            } finally {
+            }
+            finally{
                 toggleLoading(false);
             }
         });
 
         // 预览文件
-        async function previewFile(cid) {
+        async function previewFile(cid){
             toggleLoading(true);
-            try {
+            try{
                 const response = await fetch(`/preview/${cid}`);
                 const data = await response.json();
-
+                
                 const previewArea = document.getElementById('previewArea');
-                if (data.content) {
-                    if (data.content.type === 'image') {
-                        previewArea.innerHTML = `<img src="${data.content.content}" class="max-w-full h-auto rounded-xl shadow-lg" alt="预览图片">`;
-                    } else if (data.content.type === 'text') {
-                        previewArea.innerHTML = `<pre class="whitespace-pre-wrap text-sm bg-gray-50 p-4 rounded-xl">${data.content.content}</pre>`;
-                    } else {
-                        previewArea.innerHTML = `<div class="text-center text-red-500 py-8"><i class="fas fa-exclamation-triangle text-4xl mb-4"></i><p class="text-lg">${data.content.content}</p></div>`;
-                    }
-                } else {
-                    previewArea.innerHTML = '<div class="text-center text-red-500 py-8"><i class="fas fa-exclamation-triangle text-4xl mb-4"></i><p class="text-lg">无法预览此文件</p></div>';
+
+                function escapeHtml(text){
+                    const map = {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'};
+                    return text.replace(/[&<>"']/g, m => map[m]);
                 }
-            } catch (error) {
+
+                if(data.type == 'text'){
+                    previewArea.innerHTML = `<pre class="whitespace-pre-wrap text-sm bg-gray-50 p-4 rounded-xl">${escapeHtml(data.content)}</pre>`;
+                }
+                else{
+                    previewArea.innerHTML = `<div class="text-center text-red-500 py-8"><i class="fas fa-exclamation-triangle text-4xl mb-4"></i><p class="text-lg">${escapeHtml('无法预览此文件')}</p></div>`;
+                }
+            }
+            catch(error){
                 showNotification('预览出错：' + error.message, 'error');
-            } finally {
+            }
+            finally{
                 toggleLoading(false);
             }
         }
+        
+        // 下载文件
+        async function downloadFile(cid){
+            toggleLoading(true);
+            
+            try{
+                const response = await fetch(`/download/${cid}`);
+                const data = await response.json();
+                
+                // 拉取文件内容
+                const content = await fetch(data.url);
+                
+                // 创建本地blob链接
+                const blob = await content.blob();
+                const blob_url = window.URL.createObjectURL(blob);
 
+                // 创建隐藏元素并触发下载
+                const link = document.createElement("a");
+                link.href = blob_url;
+                link.download = data.filename;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                window.URL.revokeObjectURL(blob_url);
+                
+                showNotification('文件下载成功!', 'success');
+            }
+            catch(error){
+                showNotification('下载出错: ' + error.message, 'error');
+            }
+            finally{
+                toggleLoading(false);
+            }
+        }
+        
         // 删除文件
-        async function deleteFile(cid) {
-            if (!confirm('确定要删除此文件吗？此操作不可撤销。')) return;
+        async function deleteFile(cid){
+            if(!confirm('确定要删除此文件吗? 此操作不可撤销.')) return;
 
             toggleLoading(true);
-            try {
-                const response = await fetch(`/delete/${cid}`, {
-                    method: 'DELETE'
-                });
+            try{
+                const response = await fetch(`/delete/${cid}`, {method: 'DELETE'});
+
                 const data = await response.json();
 
-                if (data.success) {
-                    showNotification('文件删除成功！', 'success');
+                if(data.success){
+                    showNotification('文件删除成功!', 'success');
                     document.getElementById('searchBtn').click();
-                } else {
-                    showNotification('删除失败：' + data.error, 'error');
                 }
-            } catch (error) {
-                showNotification('删除出错：' + error.message, 'error');
-            } finally {
+                else{
+                    showNotification('删除失败: ' + data.error, 'error');
+                }
+            }
+            catch(error){
+                showNotification('删除出错: ' + error.message, 'error');
+            }
+            finally{
                 toggleLoading(false);
             }
         }
-
+        
         // 通知提示
-        function showNotification(message, type = 'info') {
+        function showNotification(message, type = 'info'){
             const notification = document.createElement('div');
-            notification.className = `notification fixed top-6 right-6 p-6 rounded-2xl shadow-2xl ${type === 'success' ? 'bg-gradient-to-r from-green-500 to-emerald-500' :
-                type === 'error' ? 'bg-gradient-to-r from-red-500 to-pink-500' :
-                    'bg-gradient-to-r from-blue-500 to-indigo-500'
-                } text-white font-semibold text-lg z-50`;
-
+            notification.className = `
+                notification fixed top-6 right-6 p-6 rounded-2xl shadow-2xl
+                ${type === 'success' ? 'bg-gradient-to-r from-green-500 to-emerald-500' : type === 'error' ? 'bg-gradient-to-r from-red-500 to-pink-500' : 'bg-gradient-to-r from-blue-500 to-indigo-500'}
+                text-white font-semibold text-lg z-50
+            `;
             notification.innerHTML = `
                 <div class="flex items-center">
                     <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'} mr-3 text-xl"></i>
@@ -689,20 +745,17 @@
             `;
             document.body.appendChild(notification);
 
-            setTimeout(() => {
-                notification.style.animation = 'slideInRight 0.5s reverse';
-                setTimeout(() => notification.remove(), 500);
-            }, 3000);
+            setTimeout(() => {notification.style.animation = 'slideInRight 0.5s reverse'; setTimeout(() => notification.remove(), 500);}, 3000);
         }
-
+        
         /* === 选项卡逻辑 === */
         const tabUpload = document.getElementById('tabUpload');
         const tabSearch = document.getElementById('tabSearch');
         const uploadSection = document.getElementById('uploadSection');
         const searchSection = document.getElementById('searchSection');
-
-        function activateTab(tab) {
-            if (tab === 'upload') {
+        
+        function activateTab(tab){
+            if(tab === 'upload'){
                 // 更新选项卡状态
                 tabUpload.classList.add('active');
                 tabSearch.classList.remove('active');
@@ -729,7 +782,8 @@
                         </div>
                     </div>
                 `;
-            } else if (tab === 'search') {
+            }
+            else if(tab === 'search'){
                 // 更新选项卡状态
                 tabUpload.classList.remove('active');
                 tabSearch.classList.add('active');
@@ -747,11 +801,11 @@
                 document.getElementById('uploadResult').classList.add('hidden');
             }
         }
-
+        
         // 绑定选项卡点击事件
         tabUpload.addEventListener('click', () => activateTab('upload'));
         tabSearch.addEventListener('click', () => activateTab('search'));
-
+        
         // 初始化显示上传区域
         activateTab('upload');
     </script>
